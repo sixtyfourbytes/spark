@@ -11,7 +11,7 @@ def parseLines(line):
 
     return stationID, entryType, temperature
 
-lines = sc.textFile('./csvFiles/1800.csv')
+lines = sc.textFile('./DataFiles/1800.csv')
 parsedLines = lines.map(parseLines)
 stationTemps = parsedLines.filter(lambda x: 'TMIN' in x[1]).map(lambda x: (x[0], x[2]))
 minTemps = stationTemps.reduceByKey(lambda x, y: min(x, y))

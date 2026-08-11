@@ -11,7 +11,7 @@ def parseLines(line):
 
     return age, (numFriends, 1)
 
-lines = sc.textFile('./csvFiles/fakefriends.csv')
+lines = sc.textFile('./DataFiles/fakefriends.csv')
 rdd = lines.map(parseLines)
 totalsByAge = rdd.reduceByKey(lambda x, y: (x[0] + y[0], x[1] + y[1]))
 averageByAge = totalsByAge.mapValues(lambda x: round(x[0] / x[1], 2))
