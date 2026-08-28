@@ -10,9 +10,12 @@ sc = SparkContext(conf = conf)
 
 lines = sc.textFile('./DataFiles/book.txt')
 words = lines.flatMap(normalizeWord)
-wordCounts = words.countByValue()
+wordCounts = words.map(lambda x: (x, 1)).reduceByKey(lambda x, y: x + y)
+wordCountsSorted = wordCounts.map(lambda x: (x[1], x[0])).sortByKey()
+results = wordCountsSorted.collect()
 
-for word, count in wordCounts.items():
-    cleanWord = word.encode('ascii', 'ignore')
+for result in results:
+    count = str(result[0])
+    cleanWord = result[1].encode('ascii', 'ignore')
     if cleanWord:
         print(cleanWord, count)
