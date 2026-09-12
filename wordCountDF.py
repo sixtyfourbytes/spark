@@ -16,5 +16,3 @@ wordCountDF = wordsLowerDF.groupBy("word").count().sort("count")
 wordCountDF.show(wordCountDF.count())
 
 spark.stop()
-
-myNum = 150
